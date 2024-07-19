@@ -10,8 +10,6 @@ class WeatherRepository implements WeatherRepositoryInterface
 {
 
     public function getWeatherByLocation(Location $location){
-        $weather = Weather::where('location_id')->first();
-        
-        return $weather;
+        return $location->weather;
     }
 }

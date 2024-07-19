@@ -1,5 +1,5 @@
 
-    <h3 class="mb-4 pb-2 fw-normal">Check the weather forecast</h3>
+<h3 class="mb-4 pb-2 fw-normal">Check the weather forecast</h3>
 
         <form method="POST" action="{{ route('weather.index') }}">
 
@@ -22,8 +22,4 @@
 
         
 
-      </div>
-    </div>
-
-  </div>
 

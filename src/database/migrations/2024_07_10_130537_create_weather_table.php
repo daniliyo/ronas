@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('pressure');
             $table->float('humidity');
 
-            $yable->bigInteger('timestamp');
+            $table->bigInteger('timestamp');
 
             $table->timestamps();
 
