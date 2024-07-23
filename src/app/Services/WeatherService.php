@@ -14,38 +14,42 @@ class WeatherService {
         protected ParserInterface $parser,
     ){}
 
-    public function get(){
-
-        $location = Location::find(Cookie::get('location_id'));
-
-        $weather = $this->weatherRep->getWeatherByLocation($location);
+    public function getByLocation($location_id){
+        $weather = $this->weatherRep->findByLocation($location_id);
         if(!$weather){
-            $weather = $this->add();
+            $weather = $this->updateOrCreate($location_id);
         }
         return $weather;
     }
 
-    public function add(){
+    public function updateOrCreate($location_id){
+        $data = $this->getData($location_id);
 
-        $location = Location::find(Cookie::get('location_id'));
+        $weatherData = $this->prepareData($data);
+        $weatherData['location_id'] = $location_id;
+
+        return Weather::updateOrCreate($weatherData, ['location_id' => $location_id]);
+    }
+
+    public function getData($location_id){
+        $location = Location::find($location_id);
         $args = ['lon' => $location->lon, 'lat' => $location->lat];
-
         
         $data = collect(json_decode(
             $this->parser->parse(ParserEnum::WeatherUrl, $args)
         ));
-        
-        $weather = Weather::create([
-            'location_id' => $location->id,
+        return $data;
+    }
+
+    public function prepareData($data){
+        return [
             'temp' => $data['main']->temp,
             'description' => $data['weather'][0]->description,
             'wind_speed' =>$data['wind']->speed,
             'pressure' => $data['main']->pressure,
             'humidity' => $data['main']->humidity,
             'timestamp' => $data['dt'],
-        ]);
-
-        return $weather;
+        ];
     }
 
 }
