@@ -7,6 +7,8 @@ use App\Interfaces\ParserInterface;
 use App\Services\Parser;
 use App\Repositories\Interfaces\WeatherRepositoryInterface;
 use App\Repositories\WeatherRepository;
+use App\Repositories\Interfaces\LocationRepositoryInterface;
+use App\Repositories\LocationRepository;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(ParserInterface::class, Parser::class);
         $this->app->bind(WeatherRepositoryInterface::class, WeatherRepository::class);
+        $this->app->bind(LocationRepositoryInterface::class, LocationRepository::class);
     }
 
     /**
