@@ -6,6 +6,6 @@ use App\Models\Location;
 
 interface WeatherRepositoryInterface {
 
-    public function getWeatherByLocation(Location $location);
+    public function findByLocation($location_id);
 
 }

@@ -9,7 +9,7 @@ use App\Models\Weather;
 class WeatherRepository implements WeatherRepositoryInterface 
 {
 
-    public function getWeatherByLocation(Location $location){
-        return $location->weather;
+    public function findByLocation($location_id){
+        return Weather::where('location_id', $location_id)->first();
     }
 }
